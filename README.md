@@ -78,7 +78,7 @@ Oferecer suporte técnico para manter o bom funcionamento da aplicação e garan
 
 O projeto está hospedado na plataforma **Vercel**, garantindo estabilidade, rapidez e fácil acesso.
 
-✅ Acesse aqui: 👉 [https://pontosaude.vercel.app](https://pontosaude.vercel.app)
+✅ Acesse aqui: 👉 [https://pontosaude.vercel.app](https://ponto-saude.vercel.app)
 
 ---
 
