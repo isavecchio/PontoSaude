@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - Dr. Vinícius Almeida Ramos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../styles/relatorios.css">
+</head>
+<body>
+    <div class="doctor-report-container">
+        <header class="report-header">
+            <h1>Dr. Vinícius Almeida Ramos</h1>
+            <div class="report-period">Período: Hoje</div>
+        </header>
+
+        <div class="period-filters">
+            <button class="period-btn active">Hoje</button>
+            <button class="period-btn">Semana</button>
+            <button class="period-btn">Mês</button>
+            <button class="period-btn">Ano</button>
+        </div>
+
+        <div class="report-content">
+            <section class="daily-stats">
+                <h2>Relatório do dia</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Consultas</h3>
+                        <div class="stat-value">18</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Raio-x</h3>
+                        <div class="stat-value">12</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Check-ups</h3>
+                        <div class="stat-value">07</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Exames</h3>
+                        <div class="stat-value">04</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="attendance-distribution">
+                <h2>Proporção dos atendimentos</h2>
+                <div class="chart-container">
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <span class="legend-color color-checkup"></span>
+                        Check-up (40%)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color color-exams"></span>
+                        Exames (25%)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color color-xray"></span>
+                        Raio-x (15%)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color color-others"></span>
+                        Outros (20%)
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../scripts/relatorios.js"></script>
+</body>
+</html>

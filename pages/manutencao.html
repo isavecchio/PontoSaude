@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Manutenção</title>
+    <link rel="stylesheet" href="../styles/manutencao.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Menu do Técnico</h3>
+        <ul>
+            <li>Gerenciar Usuários</li>
+            <li class="active">Painel de Manutenção</li>
+            <li>Configurações</li>
+            <li>Logs e Auditoria</li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <h1>Painel de Manutenção</h1>
+        
+        <div class="status-card">
+            <h2>Status do Sistema</h2>
+            <div class="status-indicator">
+                <div class="indicator green"></div>
+                <span>Operacional</span>
+            </div>
+        </div>
+        
+        <h2>Ferramentas</h2>
+        <div class="tools-grid">
+            <div class="tool-card" onclick="runTool('inconsistencies')">
+                <h3>Verificar Inconsistências</h3>
+                <p>Verifica problemas nos dados do sistema</p>
+            </div>
+            
+            <div class="tool-card" onclick="runTool('backup')">
+                <h3>Backup Automático</h3>
+                <p>Próximo: hoje às 23:00</p>
+            </div>
+            
+            <div class="tool-card" onclick="runTool('optimize')">
+                <h3>Otimizar Banco de Dados</h3>
+                <p>Melhora performance do sistema</p>
+            </div>
+            
+            <div class="tool-card" onclick="runTool('cache')">
+                <h3>Limpar Cache</h3>
+                <p>Remove arquivos temporários</p>
+            </div>
+        </div>
+        
+        <h2>Últimos Incidentes</h2>
+        <div class="incidents-list">
+            <div class="incident">
+                <strong>10/06/2023</strong> - Problema na agenda resolvido
+            </div>
+            <div class="incident">
+                <strong>09/06/2023</strong> - Atualização de segurança aplicada
+            </div>
+            <div class="incident">
+                <strong>05/06/2023</strong> - Backup completo executado
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/manutencao.js"></script>
+</body>
+</html>

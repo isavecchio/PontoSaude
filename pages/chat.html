@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Profissional - PontoSaúde</title>
+    <link rel="stylesheet" href="../styles/chat.css">
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">DR</div>
+                <div class="user-info">
+                    <h3>Dr. Vinícius Silva</h3>
+                    <p>Clínico Geral</p>
+                </div>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Pesquisar colegas...">
+            </div>
+            
+            <div class="contacts-list">
+                <div class="contact-item active">
+                    <div class="contact-avatar">FC</div>
+                    <div class="contact-info">
+                        <h4>Fernanda Costa</h4>
+                        <p>Secretária Administradora</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-avatar">RM</div>
+                    <div class="contact-info">
+                        <h4>Ricardo Mendes</h4>
+                        <p>Médico</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-avatar">AS</div>
+                    <div class="contact-info">
+                        <h4>Ana Souza</h4>
+                        <p>Secretária Administrativa</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-avatar">LC</div>
+                    <div class="contact-info">
+                        <h4>Luiza Campos</h4>
+                        <p>Médica</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-title">Menu</div>
+                <a href="doutor_logado.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </a>
+                <a href="pacientes.html" class="nav-item">
+                    <i class="fas fa-user-injured"></i>
+                    <span>Pacientes</span>
+                </a>
+                <a href="consultas.html" class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Consultas</span>
+                </a>
+                <a href="chat.html" class="nav-item active">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat</span>
+                </a>
+                
+                <!-- Botão de Sair DENTRO da sidebar -->
+                <a href="telainicial.html" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="chat-header">
+                <div class="chat-header-avatar">FC</div>
+                <div class="chat-header-info">
+                    <h3>Fernanda Costa</h3>
+                    <p>Administradora · <a href="mailto:fernanda.costa@clinica.com">Enviar e-mail</a></p>
+                </div>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-messages">
+                    <!-- Mensagem da administradora -->
+                    <div class="message message-receive message-admin">
+                        <p>Boa tarde, Doutor. Tudo bem?</p>
+                        <p>O paciente André Ribeiro não poderá comparecer à consulta de hoje.</p>
+                        <div class="message-time">12:36</div>
+                    </div>
+                    
+                    <!-- Mensagem enviada -->
+                    <div class="message message-send">
+                        <p>Boa tarde, Fernanda. Entendi, vamos remarcar então.</p>
+                        <p>Por favor, verifique a agenda para amanhã no mesmo horário.</p>
+                        <div class="message-time">12:38</div>
+                    </div>
+                    
+                    <!-- Mensagem da administradora -->
+                    <div class="message message-receive message-admin">
+                        <p>Verifiquei aqui e temos disponibilidade sim.</p>
+                        <p>Já enviei a confirmação para o paciente.</p>
+                        <div class="message-time">12:40</div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <textarea class="chat-input" placeholder="Digite sua mensagem..."></textarea>
+                    <button class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

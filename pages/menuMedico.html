@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PontoSaúde - Menu Médico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../styles/menuMedico.css">
+</head>
+<body>
+    <h1>PontoSaúde</h1>
+    
+    <div class="user-profile">
+        <img src="https://ui-avatars.com/api/?name=Vinícius+Ramos&background=3498db&color=fff&size=60" alt="Dr. Vinícius" class="user-avatar">
+        <div class="user-info">
+            <h3>Dr. Vinícius Ramos 
+                <div class="status-container">
+                    <span id="status-badge" class="badge">Online</span>
+                    <div id="status-options" class="status-options">
+                        <div class="status-option online" onclick="changeStatus('online')">
+                            <i class="fas fa-circle"></i> Online
+                        </div>
+                        <div class="status-option offline" onclick="changeStatus('offline')">
+                            <i class="fas fa-circle"></i> Offline
+                        </div>
+                        <div class="status-option ocupado" onclick="changeStatus('ocupado')">
+                            <i class="fas fa-circle"></i> Ocupado
+                        </div>
+                    </div>
+                </div>
+            </h3>
+            <p>Dermatologista | CRM-SP 123456</p>
+        </div>
+    </div>
+    
+    <h2><i class="fas fa-stethoscope"></i> Serviços</h2>
+    <ul>
+        <a href="pacientes.html" class="menu-link">
+            <li>
+                Pacientes
+                <i class="fas fa-chevron-right"></i>
+            </li>
+        </a>
+        <a href="consultas.html" class="menu-link">
+            <li>
+                Consultas agendadas
+                <i class="fas fa-chevron-right"></i>
+            </li>
+        </a>
+        <a href="chat.html" class="menu-link">
+            <li>
+                Chat <span class="badge">3</span>
+                <i class="fas fa-chevron-right"></i>
+            </li>
+        </a>
+    </ul>
+    
+    <hr>
+    
+    <h2><i class="fas fa-user-circle"></i> Perfil</h2>
+    <ul>
+        <a href="editardoutor.html" class="menu-link">
+            <li>
+                Editar perfil
+                <i class="fas fa-chevron-right"></i>
+            </li>
+        </a>
+        <a href="relatorios.html" class="menu-link">
+            <li>
+                Relatórios
+                <i class="fas fa-chevron-right"></i>
+            </li>
+        </a>
+    </ul>
+    
+    <div class="footer-button" onclick="window.location.href='sobre.html'">
+        Sobre nós
+        <small>Conheça mais sobre</small>
+    </div>
+    
+    <div class="footer-button" onclick="logout()">
+        Sair
+        <small>Sair da conta</small>
+    </div>
+
+    <script src="../scripts/menuMedico.js"></script>
+</body>
+</html>

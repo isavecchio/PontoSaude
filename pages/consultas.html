@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Consultas - PontoSaúde</title>
+    <link rel="stylesheet" href="../styles/consultas.css">
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar com links de navegação -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">DR</div>
+                <div class="user-info">
+                    <h3>Dr. Vinícius Silva</h3>
+                    <p>Clínico Geral</p>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-title">Menu</div>
+                <a href="doutor_logado.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </a>
+                <a href="pacientes.html" class="nav-item">
+                    <i class="fas fa-user-injured"></i>
+                    <span>Pacientes</span>
+                </a>
+                <a href="consultas.html" class="nav-item active">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Consultas</span>
+                </a>
+                <a href="chat.html" class="nav-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat</span>
+                </a>
+                
+                <!-- Botão de Sair DENTRO da sidebar -->
+                <a href="telainicial.html" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="welcome-section">
+                <h1>Bem-vindo(a), Doutor</h1>
+                <p>Suas consultas agendadas</p>
+            </section>
+            
+            <div class="consultation-tabs">
+                <div class="tab active">Todas as consultas</div>
+                <div class="tab">Consultas agendadas</div>
+                <div class="tab">Consultas passadas</div>
+            </div>
+            
+            <div class="consultation-list">
+                <div class="consultation-header">
+                    <div>Nome do paciente</div>
+                    <div>Tipo de consulta</div>
+                    <div>Data</div>
+                    <div>Horário</div>
+                </div>
+                
+                <div class="consultation-item">
+                    <div>Ana Paula</div>
+                    <div><span class="consultation-type type-checkup">check-up rotina</span></div>
+                    <div>26/05/2025</div>
+                    <div>17:55</div>
+                </div>
+                
+                <div class="consultation-item">
+                    <div>Carlos Eduardo</div>
+                    <div><span class="consultation-type type-exam">análise de exame</span></div>
+                    <div>26/05/2025</div>
+                    <div>17:10</div>
+                </div>
+                
+                <div class="consultation-item">
+                    <div>Fernanda Lima</div>
+                    <div><span class="consultation-type type-xray">raio-x</span></div>
+                    <div>26/05/2025</div>
+                    <div>15:32</div>
+                </div>
+                
+                <div class="consultation-item">
+                    <div>João Pedro</div>
+                    <div><span class="consultation-type type-xray">raio-x</span></div>
+                    <div>26/05/2025</div>
+                    <div>14:40</div>
+                </div>
+                
+                <div class="consultation-item">
+                    <div>Mariana Souza</div>
+                    <div><span class="consultation-type type-exam">análise de exame</span></div>
+                    <div>26/05/2025</div>
+                    <div>13:05</div>
+                </div>
+                
+                <div class="consultation-item">
+                    <div>Ricardo Alves</div>
+                    <div><span class="consultation-type type-checkup">check-up rotina</span></div>
+                    <div>26/05/2025</div>
+                    <div>11:30</div>
+                </div>
+                
+                <div class="consultation-item">
+                    <div>Gustavo Martins</div>
+                    <div><span class="consultation-type type-exam">análise de exame</span></div>
+                    <div>24/05/2025</div>
+                    <div>20:25</div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

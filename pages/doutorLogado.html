@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PontoSaúde</title>
+    <link rel="stylesheet" href="../styles/doutorLogado.css">
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar com links -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">DR</div>
+                <div class="user-info">
+                    <h3>Dr. Vinícius Silva</h3>
+                    <p>Clínico Geral</p>
+                </div>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Pesquisar...">
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-title">Menu</div>
+                <a href="doutor_logado.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </a>
+                
+                <a href="pacientes.html" class="nav-item">
+                    <i class="fas fa-user-injured"></i>
+                    <span>Pacientes</span>
+                </a>
+                
+                <a href="consultas.html" class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Consultas</span>
+                </a>
+                
+                <a href="chat.html" class="nav-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat</span>
+                </a>
+                <a href="telainicial.html" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="welcome-section">
+                <h1>Olá!</h1>
+                <p>Bem vindo de volta ao seu dashboard</p>
+            </section>
+            
+            <section class="services-section">
+                <h2 class="section-title">Serviços</h2>
+                <div class="services-grid">
+                    <a href="pacientes.html" class="service-card">
+                        <h3>Pacientes</h3>
+                        <p>Veja suas consultas agendadas de forma rápida e fácil</p>
+                    </a>
+                    
+                    <a href="consultas.html" class="service-card">
+                        <h3>Consultas Agendadas</h3>
+                        <p>Veja suas consultas agendadas de forma rápida e fácil</p>
+                    </a>
+                    
+                    <a href="chat.html" class="service-card">
+                        <h3>Chat</h3>
+                        <p>Veja suas consultas agendadas de forma rápida e fácil</p>
+                    </a>
+                </div>
+            </section>
+            
+            <section class="calendar-section">
+                <h2 class="section-title">Agenda</h2>
+                
+                <div class="calendar-header">
+                    <h3>Maio 2025</h3>
+                    <div class="calendar-nav">
+                        <button><i class="fas fa-chevron-left"></i></button>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Dom</div>
+                    <div class="calendar-day-header">Seg</div>
+                    <div class="calendar-day-header">Ter</div>
+                    <div class="calendar-day-header">Qua</div>
+                    <div class="calendar-day-header">Qui</div>
+                    <div class="calendar-day-header">Sex</div>
+                    <div class="calendar-day-header">Sab</div>
+                    
+                    <div class="calendar-day">25</div>
+                    <div class="calendar-day today">26</div>
+                    <div class="calendar-day">27</div>
+                    <div class="calendar-day">28</div>
+                    <div class="calendar-day">29</div>
+                    <div class="calendar-day">30</div>
+                    <div class="calendar-day">31</div>
+                </div>
+                
+                <div class="appointments-list">
+                    <a href="detalhes-consulta.html" class="appointment-card">
+                        <h4>Paciente: Ana Paula Couto</h4>
+                        <div class="appointment-meta">
+                            <span><strong>Tipo de consulta:</strong> Check-up de rotina</span>
+                        </div>
+                        <div class="appointment-time">
+                            <i class="far fa-calendar"></i>
+                            <span>26/05/2025</span>
+                            <i class="far fa-clock"></i>
+                            <span>10:00</span>
+                        </div>
+                    </a>
+                    
+                    <a href="detalhes-consulta.html" class="appointment-card">
+                        <h4>Paciente: Fernando Barbosa</h4>
+                        <div class="appointment-meta">
+                            <span><strong>Tipo de consulta:</strong> Check-up de rotina</span>
+                        </div>
+                        <div class="appointment-time">
+                            <i class="far fa-calendar"></i>
+                            <span>26/05/2025</span>
+                            <i class="far fa-clock"></i>
+                            <span>14:30</span>
+                        </div>
+                    </a>
+                    
+                    <a href="detalhes-consulta.html" class="appointment-card">
+                        <h4>Paciente: Sérgio Alves</h4>
+                        <div class="appointment-meta">
+                            <span><strong>Tipo de consulta:</strong> Check-up de rotina</span>
+                        </div>
+                        <div class="appointment-time">
+                            <i class="far fa-calendar"></i>
+                            <span>26/05/2025</span>
+                            <i class="far fa-clock"></i>
+                            <span>16:00</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

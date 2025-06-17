@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - Dr. Vinícius Almeida Ramos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../styles/editarDoutor.css">
+</head>
+<body>
+    <div class="profile-edit-container">
+        <div class="profile-header">
+            <h1>Editar Perfil</h1>
+            <a href="#" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Voltar
+            </a>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-photo-section">
+                <img src="https://ui-avatars.com/api/?name=Vinicius+Almeida&background=3498db&color=fff&size=150" alt="Foto do Dr. Vinícius" class="profile-photo">
+                <div class="photo-upload">
+                    <button class="photo-upload-btn">
+                        <i class="fas fa-camera"></i> Alterar Foto
+                    </button>
+                    <button class="photo-remove-btn">
+                        <i class="fas fa-trash"></i> Remover Foto
+                    </button>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>Informações Pessoais</h2>
+                <div class="form-group">
+                    <label for="fullName">Nome Completo</label>
+                    <input type="text" id="fullName" class="form-control" value="Vinicius Almeida Ramos">
+                </div>
+                <div class="form-group">
+                    <label for="position">Cargo</label>
+                    <input type="text" id="position" class="form-control" value="Médico dermatologista">
+                </div>
+                <div class="form-group">
+                    <label for="hospitalId">Matrícula Hospitalar</label>
+                    <input type="text" id="hospitalId" class="form-control" value="MED-05678" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="crm">CRM</label>
+                    <input type="text" id="crm" class="form-control" value="CRM-SP 123456">
+                </div>
+                <div class="form-group">
+                    <label for="registrationDate">Data de inscrição</label>
+                    <input type="text" id="registrationDate" class="form-control" value="20/01/2017" readonly>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>Contato</h2>
+                <div class="form-group">
+                    <label for="email">E-mail corporativo</label>
+                    <input type="email" id="email" class="form-control" value="doutorvinicius@nomedaclinica.com.br">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone</label>
+                    <input type="tel" id="phone" class="form-control" value="(11) 98765-4321">
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>Idiomas</h2>
+                <div class="form-group">
+                    <label>Idiomas que fala</label>
+                    <div class="languages-container">
+                        <div class="language-tag">
+                            Português
+                            <button type="button" class="remove-language"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="language-tag">
+                            Inglês
+                            <button type="button" class="remove-language"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="language-tag">
+                            Espanhol
+                            <button type="button" class="remove-language"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="newLanguage" class="form-control" placeholder="Adicionar novo idioma" style="flex: 1;">
+                            <button type="button" id="addLanguage" class="btn" style="padding: 0.5rem 1rem;">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section" style="grid-column: span 2;">
+                <h2>Formação Acadêmica</h2>
+                <div id="educationList">
+                    <div class="education-item">
+                        <h3>Graduação em Medicina</h3>
+                        <p>Universidade de São Paulo (USP)</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Residência em Dermatologia</h3>
+                        <p>Hospital das Clínicas (HC-FMUSP)</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Pós-graduação em Dermatologia Estética</h3>
+                        <p>Instituto BWS</p>
+                    </div>
+                </div>
+                <button type="button" class="add-education">
+                    <i class="fas fa-plus"></i> Adicionar Formação
+                </button>
+            </div>
+
+            <div class="profile-section">
+                <h2>Experiência</h2>
+                <div class="form-group">
+                    <label for="experience">Tempo de experiência</label>
+                    <input type="text" id="experience" class="form-control" value="Atuando na área desde 2016">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-cancel">Cancelar</button>
+                <button type="button" class="btn btn-save">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/editarDoutor.js"></script>
+</body>
+</html>
