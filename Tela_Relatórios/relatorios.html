@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - Dr. Vinícius Almeida Ramos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .doctor-report-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 1rem;
+        }
+
+        .report-header h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .report-period {
+            font-size: 1rem;
+            color: #7f8c8d;
+            background-color: #ecf0f1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .report-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .daily-stats, .attendance-distribution {
+            background: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            margin-top: 0;
+            color: #7f8c8d;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0.5rem 0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1rem 0;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            background-color: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .legend-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .color-checkup { background-color: #088C7F;}
+        .color-exams { background-color: #10465C; }
+        .color-xray { background-color: #25AEA1; }
+        .color-others { background-color: #89D2CB; }
+
+        .period-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .period-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #ecf0f1;
+            color: #7f8c8d;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .period-btn:hover {
+            background-color: #d6eaf8;
+            color: #3498db;
+        }
+
+        .period-btn.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .report-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="doctor-report-container">
+        <header class="report-header">
+            <h1>Dr. Vinícius Almeida Ramos</h1>
+            <div class="report-period">Período: Hoje</div>
+        </header>
+
+        <div class="period-filters">
+            <button class="period-btn active">Hoje</button>
+            <button class="period-btn">Semana</button>
+            <button class="period-btn">Mês</button>
+            <button class="period-btn">Ano</button>
+        </div>
+
+        <div class="report-content">
+            <section class="daily-stats">
+                <h2>Relatório do dia</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Consultas</h3>
+                        <div class="stat-value">18</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Raio-x</h3>
+                        <div class="stat-value">12</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Check-ups</h3>
+                        <div class="stat-value">07</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Exames</h3>
+                        <div class="stat-value">04</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="attendance-distribution">
+                <h2>Proporção dos atendimentos</h2>
+                <div class="chart-container">
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <span class="legend-color color-checkup"></span>
+                        Check-up (40%)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color color-exams"></span>
+                        Exames (25%)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color color-xray"></span>
+                        Raio-x (15%)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color color-others"></span>
+                        Outros (20%)
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do gráfico de pizza
+        const ctx = document.getElementById('attendanceChart').getContext('2d');
+        const attendanceChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Check-up', 'Exames', 'Raio-x', 'Outros'],
+                datasets: [{
+                    data: [40, 25, 15, 20],
+                    backgroundColor: [
+                        '#088C7F',
+                        '#10465C',
+                        '#25AEA1',
+                        '#89D2CB'
+                    ],
+                    borderWidth: 0,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                cutout: '65%',
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        });
+
+        // Interação dos botões de período
+        const periodBtns = document.querySelectorAll('.period-btn');
+        periodBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                periodBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelector('.report-period').textContent = `Período: ${btn.textContent}`;
+                
+                // Aqui você pode adicionar lógica para atualizar os dados conforme o período selecionado
+                // Exemplo simplificado:
+                if(btn.textContent === 'Hoje') {
+                    updateData([18, 12, 7, 4], [40, 25, 15, 20]);
+                } else if(btn.textContent === 'Semana') {
+                    updateData([125, 80, 45, 30], [35, 30, 20, 15]);
+                }
+                // E assim por diante para outros períodos
+            });
+        });
+
+        function updateData(statsData, distributionData) {
+            // Atualiza os cards de estatísticas
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach((el, index) => {
+                el.textContent = statsData[index].toString().padStart(2, '0');
+            });
+            
+            // Atualiza o gráfico
+            attendanceChart.data.datasets[0].data = distributionData;
+            attendanceChart.update();
+            
+            // Atualiza a legenda (simplificado - na prática você teria dados dinâmicos)
+            const legendItems = document.querySelectorAll('.legend-item');
+            legendItems[0].textContent = ` Check-up (${distributionData[0]}%)`;
+            legendItems[1].textContent = ` Exames (${distributionData[1]}%)`;
+            legendItems[2].textContent = ` Raio-x (${distributionData[2]}%)`;
+            legendItems[3].textContent = ` Outros (${distributionData[3]}%)`;
+            
+            // Adiciona as cores de volta
+            legendItems[0].innerHTML = '<span class="legend-color color-checkup"></span>' + legendItems[0].textContent;
+            legendItems[1].innerHTML = '<span class="legend-color color-exams"></span>' + legendItems[1].textContent;
+            legendItems[2].innerHTML = '<span class="legend-color color-xray"></span>' + legendItems[2].textContent;
+            legendItems[3].innerHTML = '<span class="legend-color color-others"></span>' + legendItems[3].textContent;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dúvidas Frequentes - PontoSaúde</title>
+    <style>
+        :root {
+            --primary-color: #25AEA1;
+            --primary-light: #4caf93;
+            --primary-dark: #088C7F;
+            --text-color: #333;
+            --light-gray: #f5f7fa;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background-color: var(--white);
+            padding: 1.5rem 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        
+        .user-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .user-info p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .nav-menu {
+            padding: 1rem 0;
+        }
+        
+        .nav-title {
+            padding: 0 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+        }
+        
+        .nav-item {
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .nav-item:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .nav-item.active {
+            background-color: var(--primary-light);
+            color: var(--white);
+        }
+        
+        .nav-item i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .login-link {
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--primary-color);
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+        
+        .login-link:hover {
+            background-color: rgba(37, 174, 161, 0.1);
+        }
+        
+        .login-link i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            background-color: var(--white);
+            margin: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .faq-header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .faq-header .subtitle {
+            font-style: italic;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        .category-title {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            color: var(--primary-color);
+        }
+        
+        .faq-answer {
+            padding-top: 1rem;
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .contact-support {
+            background-color: #e8f5f0;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .contact-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .contact-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .icon {
+            transition: transform 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .faq-item.active .icon {
+            transform: rotate(45deg);
+        }
+        
+        .question-number {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .main-content {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .faq-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div>
+                <div class="user-profile">
+                    <div class="user-avatar">PS</div>
+                    <div class="user-info">
+                        <h3>PontoSaúde</h3>
+                        <p>Sistema Integrado</p>
+                    </div>
+                </div>
+                
+                <nav class="nav-menu">
+                    <div class="nav-title">Menu</div>
+                    <a href="telainicial.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>Início</span>
+                    </a>
+                    <a href="sobre.html" class="nav-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Sobre nós</span>
+                    </a>
+                    <a href="duvidas.html" class="nav-item active">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Dúvidas</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Botão "Ir para Login" -->
+            <a href="login.html" class="login-link">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Ir para Login</span>
+            </a>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="faq-header">
+                <h1><i class="fas fa-question-circle"></i> Dúvidas Frequentes – PontoSaúde</h1>
+                <p class="subtitle">Soluções para Médicos, Secretárias e Administradores</p>
+            </div>
+            
+            <div class="category-title"><i class="fas fa-user-plus"></i> Cadastro e Acesso</div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">1.</span> Como faço para cadastrar minha clínica no PontoSaúde?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>O cadastro é realizado diretamente no aplicativo. Basta selecionar "Cadastrar Clínica", preencher os dados da empresa e, em seguida, adicionar os profissionais da equipe (médicos e administradores).</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">2.</span> Quem pode criar usuários no sistema?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Apenas administradores têm permissão para cadastrar novos usuários, sejam médicos ou outros administradores/secretárias.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">3.</span> É possível cadastrar mais de um profissional na mesma clínica?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim. A plataforma permite o cadastro de múltiplos médicos e colaboradores, cada um com seu perfil de acesso e agenda individual.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">4.</span> Como recuperar minha senha?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Na tela de login, clique em "Esqueci minha senha". Se houver problemas, o backoffice do PontoSaúde pode auxiliar na redefinição, mediante solicitação via suporte.</p>
+                </div>
+            </div>
+            
+            <div class="category-title"><i class="fas fa-cogs"></i> Funcionalidades do Sistema</div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">5.</span> Quais são os principais recursos do PontoSaúde?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <ul>
+                        <li>Agendamento e gerenciamento de consultas;</li>
+                        <li>Cadastro de pacientes e profissionais;</li>
+                        <li>Visualização da agenda por médico;</li>
+                        <li>Histórico de atendimentos;</li>
+                        <li>Controle e organização dos horários da clínica;</li>
+                        <li>Suporte técnico e manutenção.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">6.</span> O aplicativo emite notificações de consultas?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim. O sistema envia lembretes automáticos para os médicos e para a administração sobre os compromissos do dia.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">7.</span> Existe controle de prontuário dos pacientes?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Não. O foco do PontoSaúde é o agendamento e a gestão de consultas, não o armazenamento de prontuários clínicos.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">8.</span> A secretária consegue agendar consultas para qualquer médico da clínica?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim. As secretárias e administradores possuem acesso às agendas de todos os profissionais cadastrados na clínica.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">9.</span> Médicos podem alterar ou excluir agendamentos?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Os médicos podem visualizar sua agenda, confirmar ou cancelar atendimentos. Alterações maiores são responsabilidade da secretária ou do administrador.</p>
+                </div>
+            </div>
+            
+            <div class="category-title"><i class="fas fa-users"></i> Gestão de Usuários e Pacientes</div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">10.</span> Quem faz o cadastro de pacientes?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>O cadastro de pacientes é feito exclusivamente pelas secretárias ou administradores. Médicos não possuem essa permissão.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">11.</span> Como editar dados de um paciente ou profissional?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Acesse a aba de "Cadastro", selecione o paciente ou profissional e utilize a opção "Editar Dados". Somente perfis de administrador podem realizar essa ação.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">12.</span> O que acontece se um paciente faltar?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>O sistema permite marcar como "Falta", mantendo o histórico atualizado para controle da clínica e dos profissionais.</p>
+                </div>
+            </div>
+            
+            <div class="category-title"><i class="fas fa-headset"></i> Suporte e Manutenção</div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">13.</span> E se ocorrer algum problema técnico no sistema?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>A equipe de backoffice do PontoSaúde oferece suporte técnico. No menu "Ajuda e Suporte", é possível abrir um chamado ou solicitar auxílio.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">14.</span> Quem realiza a manutenção do sistema?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>O backoffice do PontoSaúde é responsável pela manutenção técnica, atualização do sistema, correção de erros e redefinição de senhas, sempre que necessário.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span><span class="question-number">15.</span> É necessário internet para utilizar o sistema?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim. O PontoSaúde é uma plataforma online, portanto, é necessário estar conectado à internet para acessar, cadastrar e gerenciar consultas.</p>
+                </div>
+            </div>
+            
+            <div class="contact-support">
+                <h3>Precisa de mais ajuda?</h3>
+                <p>Entre em contato com nossa equipe de suporte para assistência personalizada.</p>
+                <button class="contact-btn">Acessar Suporte Técnico</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentNode;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

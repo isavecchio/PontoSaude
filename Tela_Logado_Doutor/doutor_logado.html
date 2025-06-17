@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PontoSaúde</title>
+    <style>
+        :root {
+            --primary-color: #2a7f62;
+            --primary-light: #4caf93;
+            --primary-dark: #005038;
+            --text-color: #333;
+            --light-gray: #f5f7fa;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background-color: var(--white);
+            padding: 1.5rem 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        
+        .user-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .user-info p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .search-box {
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-menu {
+            padding: 1rem 0;
+            flex-grow: 1;
+        }
+        
+        .nav-item {
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .nav-item:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .nav-item.active {
+            background-color: var(--primary-light);
+            color: var(--white);
+        }
+        
+        .nav-item i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Botão Sair */
+        .logout-container {
+            padding: 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            background-color: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            color: var(--primary-dark);
+            background-color: var(--light-gray);
+        }
+
+        .logout-btn i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        .welcome-section {
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-section h1 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .welcome-section p {
+            color: #666;
+        }
+        
+        .services-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-dark);
+        }
+        
+        .service-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .service-card.active {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .calendar-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .calendar-nav button {
+            background-color: var(--primary-light);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calendar-day-header {
+            font-weight: 600;
+            padding: 0.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .calendar-day {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .calendar-day.today {
+            background-color: var(--primary-light);
+            color: var(--white);
+        }
+        
+        .appointments-list {
+            margin-top: 1.5rem;
+        }
+        
+        .appointment-card {
+            background-color: var(--light-gray);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+        }
+        
+        .appointment-card:hover {
+            background-color: #e8f5e9;
+        }
+        
+        .appointment-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .appointment-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .appointment-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .appointment-time i {
+            color: var(--primary-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar com links -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">DR</div>
+                <div class="user-info">
+                    <h3>Dr. Vinícius Silva</h3>
+                    <p>Clínico Geral</p>
+                </div>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Pesquisar...">
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-title">Menu</div>
+                <a href="doutor_logado.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </a>
+                
+                <a href="pacientes.html" class="nav-item">
+                    <i class="fas fa-user-injured"></i>
+                    <span>Pacientes</span>
+                </a>
+                
+                <a href="consultas.html" class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Consultas</span>
+                </a>
+                
+                <a href="chat.html" class="nav-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat</span>
+                </a>
+                <a href="telainicial.html" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="welcome-section">
+                <h1>Olá!</h1>
+                <p>Bem vindo de volta ao seu dashboard</p>
+            </section>
+            
+            <section class="services-section">
+                <h2 class="section-title">Serviços</h2>
+                <div class="services-grid">
+                    <a href="pacientes.html" class="service-card">
+                        <h3>Pacientes</h3>
+                        <p>Veja suas consultas agendadas de forma rápida e fácil</p>
+                    </a>
+                    
+                    <a href="consultas.html" class="service-card">
+                        <h3>Consultas Agendadas</h3>
+                        <p>Veja suas consultas agendadas de forma rápida e fácil</p>
+                    </a>
+                    
+                    <a href="chat.html" class="service-card">
+                        <h3>Chat</h3>
+                        <p>Veja suas consultas agendadas de forma rápida e fácil</p>
+                    </a>
+                </div>
+            </section>
+            
+            <section class="calendar-section">
+                <h2 class="section-title">Agenda</h2>
+                
+                <div class="calendar-header">
+                    <h3>Maio 2025</h3>
+                    <div class="calendar-nav">
+                        <button><i class="fas fa-chevron-left"></i></button>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Dom</div>
+                    <div class="calendar-day-header">Seg</div>
+                    <div class="calendar-day-header">Ter</div>
+                    <div class="calendar-day-header">Qua</div>
+                    <div class="calendar-day-header">Qui</div>
+                    <div class="calendar-day-header">Sex</div>
+                    <div class="calendar-day-header">Sab</div>
+                    
+                    <div class="calendar-day">25</div>
+                    <div class="calendar-day today">26</div>
+                    <div class="calendar-day">27</div>
+                    <div class="calendar-day">28</div>
+                    <div class="calendar-day">29</div>
+                    <div class="calendar-day">30</div>
+                    <div class="calendar-day">31</div>
+                </div>
+                
+                <div class="appointments-list">
+                    <a href="detalhes-consulta.html" class="appointment-card">
+                        <h4>Paciente: Ana Paula Couto</h4>
+                        <div class="appointment-meta">
+                            <span><strong>Tipo de consulta:</strong> Check-up de rotina</span>
+                        </div>
+                        <div class="appointment-time">
+                            <i class="far fa-calendar"></i>
+                            <span>26/05/2025</span>
+                            <i class="far fa-clock"></i>
+                            <span>10:00</span>
+                        </div>
+                    </a>
+                    
+                    <a href="detalhes-consulta.html" class="appointment-card">
+                        <h4>Paciente: Fernando Barbosa</h4>
+                        <div class="appointment-meta">
+                            <span><strong>Tipo de consulta:</strong> Check-up de rotina</span>
+                        </div>
+                        <div class="appointment-time">
+                            <i class="far fa-calendar"></i>
+                            <span>26/05/2025</span>
+                            <i class="far fa-clock"></i>
+                            <span>14:30</span>
+                        </div>
+                    </a>
+                    
+                    <a href="detalhes-consulta.html" class="appointment-card">
+                        <h4>Paciente: Sérgio Alves</h4>
+                        <div class="appointment-meta">
+                            <span><strong>Tipo de consulta:</strong> Check-up de rotina</span>
+                        </div>
+                        <div class="appointment-time">
+                            <i class="far fa-calendar"></i>
+                            <span>26/05/2025</span>
+                            <i class="far fa-clock"></i>
+                            <span>16:00</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

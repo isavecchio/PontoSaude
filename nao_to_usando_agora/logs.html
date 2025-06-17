@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs e Auditoria | Sistema Administrativo</title>
+    <style>
+        :root {
+            --sidebar-bg: #2A3F54;
+            --primary: #3498DB;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+            --success: #2ECC71;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        /* Sidebar melhorada */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            color: white;
+            padding: 25px 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-header {
+            padding: 0 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar h3 i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar li {
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar li:hover, .sidebar li.active {
+            background: rgba(255,255,255,0.1);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background: #F5F7FA;
+        }
+        
+        /* Header melhorado */
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            color: #2A3F54;
+            margin: 0;
+        }
+        
+        /* Filtros avançados */
+        .filters-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .filter-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .filter-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #DDD;
+            border-radius: 6px;
+            background: #FFF;
+            font-size: 0.9rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .btn {
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980B9;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #DDD;
+            color: #555;
+        }
+        
+        .btn-outline:hover {
+            background: #F5F5F5;
+        }
+        
+        /* Tabela avançada */
+        .logs-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        .logs-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .logs-table th {
+            background: #F8F9FA;
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+            color: #555;
+            border-bottom: 2px solid #EEE;
+        }
+        
+        .logs-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #EEE;
+            vertical-align: top;
+        }
+        
+        .logs-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .logs-table tr:hover {
+            background: #F9FBFD;
+        }
+        
+        /* Badges para tipos de eventos */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge-login {
+            background: #E3F2FD;
+            color: #1976D2;
+        }
+        
+        .badge-security {
+            background: #FFF8E1;
+            color: #FF8F00;
+        }
+        
+        .badge-system {
+            background: #E8F5E9;
+            color: #388E3C;
+        }
+        
+        .badge-warning {
+            background: #FFF3E0;
+            color: #EF6C00;
+        }
+        
+        .badge-danger {
+            background: #FFEBEE;
+            color: #D32F2F;
+        }
+        
+        /* Paginação */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-top: 1px solid #EEE;
+        }
+        
+        .pagination-info {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .page-btn {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #FFF;
+            border: 1px solid #DDD;
+        }
+        
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .page-btn:hover:not(.active) {
+            background: #F5F5F5;
+        }
+        
+        /* Detalhes do log */
+        .log-details {
+            display: none;
+            padding: 15px;
+            background: #F9F9F9;
+            border-top: 1px dashed #DDD;
+        }
+        
+        .log-details.show {
+            display: table-row;
+        }
+        
+        .details-content {
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #EEE;
+        }
+        
+        .details-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .details-label {
+            font-weight: 500;
+            color: #666;
+            min-width: 120px;
+        }
+        
+        /* Ícones */
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-cogs"></i> Painel do Técnico</h3>
+        </div>
+        <ul>
+            <li><i class="fas fa-users"></i> Gerenciar Usuários</li>
+            <li><i class="fas fa-tools"></i> Painel de Manutenção</li>
+            <li><i class="fas fa-cog"></i> Configurações</li>
+            <li class="active"><i class="fas fa-clipboard-list"></i> Logs e Auditoria</li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-header">
+            <h1 class="page-title"><i class="fas fa-clipboard-list"></i> Logs e Auditoria</h1>
+            <div>
+                <button class="btn btn-outline"><i class="fas fa-sync-alt"></i> Atualizar</button>
+            </div>
+        </div>
+        
+        <div class="filters-card">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label>Período</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="datetime-local" class="filter-control" id="dateFrom" value="2023-06-01T00:00">
+                        <span style="align-self: center;">à</span>
+                        <input type="datetime-local" class="filter-control" id="dateTo" value="2023-06-10T23:59">
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Tipo de Evento</label>
+                    <select class="filter-control" id="eventType">
+                        <option value="all">Todos os Eventos</option>
+                        <option value="login">Autenticação</option>
+                        <option value="security">Segurança</option>
+                        <option value="system">Sistema</option>
+                        <option value="user">Usuários</option>
+                        <option value="warning">Alertas</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label>Usuário</label>
+                    <input type="text" class="filter-control" id="userFilter" placeholder="Filtrar por usuário...">
+                </div>
+                
+                <div class="filter-group">
+                    <label>IP</label>
+                    <input type="text" class="filter-control" id="ipFilter" placeholder="Filtrar por endereço IP...">
+                </div>
+                
+                <div class="filter-group">
+                    <label>Palavra-chave</label>
+                    <input type="text" class="filter-control" id="keywordFilter" placeholder="Buscar em detalhes...">
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-outline" onclick="resetFilters()">
+                    <i class="fas fa-undo"></i> Limpar Filtros
+                </button>
+                <button class="btn btn-primary" onclick="applyFilters()">
+                    <i class="fas fa-filter"></i> Aplicar Filtros
+                </button>
+                <button class="btn btn-primary" onclick="exportLogs()">
+                    <i class="fas fa-file-export"></i> Exportar Logs
+                </button>
+            </div>
+        </div>
+        
+        <div class="logs-card">
+            <div class="table-responsive">
+                <table class="logs-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 150px;">Data/Hora</th>
+                            <th style="width: 120px;">Tipo</th>
+                            <th style="width: 150px;">Usuário</th>
+                            <th>Ação</th>
+                            <th style="width: 120px;">IP</th>
+                            <th style="width: 50px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Exemplo de log com detalhes expandíveis -->
+                        <tr class="log-entry" onclick="toggleDetails(1)">
+                            <td>10/06/2023 14:30:22</td>
+                            <td><span class="badge badge-security">Segurança</span></td>
+                            <td>joao.silva</td>
+                            <td>Redefinição de senha para usuário maria.souza</td>
+                            <td>192.168.1.105</td>
+                            <td><i class="fas fa-chevron-down"></i></td>
+                        </tr>
+                        <tr class="log-details" id="details-1">
+                            <td colspan="6">
+                                <div class="details-content">
+                                    <div class="details-row">
+                                        <div class="details-label">ID do Evento:</div>
+                                        <div>LOG-20230610-1423-55892</div>
+                                    </div>
+                                    <div class="details-row">
+                                        <div class="details-label">Nível:</div>
+                                        <div>ALTA</div>
+                                    </div>
+                                    <div class="details-row">
+                                        <div class="details-label">Dispositivo:</div>
+                                        <div>Chrome 114 (Windows 10)</div>
+                                    </div>
+                                    <div class="details-row">
+                                        <div class="details-label">Localização:</div>
+                                        <div>São Paulo, BR (inferido por IP)</div>
+                                    </div>
+                                    <div class="details-row">
+                                        <div class="details-label">Detalhes:</div>
+                                        <div>Senha redefinida através do painel administrativo. Nova senha gerada automaticamente.</div>
+                                    </div>
+                                    <div class="details-row">
+                                        <div class="details-label">Metadata:</div>
+                                        <div>{"user_agent":"Mozilla/5.0","method":"POST","status":"success"}</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Outros logs de exemplo -->
+                        <tr class="log-entry" onclick="toggleDetails(2)">
+                            <td>10/06/2023 12:45:03</td>
+                            <td><span class="badge badge-system">Sistema</span></td>
+                            <td>Sistema</td>
+                            <td>Backup automático executado com sucesso</td>
+                            <td>-</td>
+                            <td><i class="fas fa-chevron-down"></i></td>
+                        </tr>
+                        <tr class="log-details" id="details-2">
+                            <td colspan="6">
+                                <div class="details-content">
+                                    <div class="details-row">
+                                        <div class="details-label">ID do Evento:</div>
+                                        <div>SYS-20230610-1245-00234</div>
+                                    </div>
+                                    <div class="details-row">
+                                        <div class="details-label">Tamanho:</div>
+                                        <div>2.45 GB</div>
+                                    </div>
+                                    <div class="details-row">
+                                        <div class="details-label">Duração:</div>
+                                        <div>12 minutos 34 segundos</div>
+                                    </div>
+                                    <div class="details-row">
+                                        <div class="details-label">Destino:</div>
+                                        <div>/backups/daily/backup_20230610.zip</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr class="log-entry" onclick="toggleDetails(3)">
+                            <td>10/06/2023 09:15:47</td>
+                            <td><span class="badge badge-login">Autenticação</span></td>
+                            <td>maria.souza</td>
+                            <td>Login bem-sucedido</td>
+                            <td>177.220.18.63</td>
+                            <td><i class="fas fa-chevron-down"></i></td>
+                        </tr>
+                        
+                        <tr class="log-entry" onclick="toggleDetails(4)">
+                            <td>09/06/2023 23:00:12</td>
+                            <td><span class="badge badge-system">Sistema</span></td>
+                            <td>Sistema</td>
+                            <td>Limpeza de cache agendada</td>
+                            <td>-</td>
+                            <td><i class="fas fa-chevron-down"></i></td>
+                        </tr>
+                        
+                        <tr class="log-entry" onclick="toggleDetails(5)">
+                            <td>09/06/2023 15:22:31</td>
+                            <td><span class="badge badge-warning">Alerta</span></td>
+                            <td>sistema</td>
+                            <td>Tentativa de login falhou - usuário não encontrado</td>
+                            <td>45.227.253.108</td>
+                            <td><i class="fas fa-chevron-down"></i></td>
+                        </tr>
+                        
+                        <tr class="log-entry" onclick="toggleDetails(6)">
+                            <td>08/06/2023 11:05:18</td>
+                            <td><span class="badge badge-danger">Crítico</span></td>
+                            <td>sistema</td>
+                            <td>Alerta: 5 tentativas de login falhadas em 2 minutos</td>
+                            <td>187.32.156.74</td>
+                            <td><i class="fas fa-chevron-down"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination">
+                <div class="pagination-info">
+                    Mostrando 1-6 de 128 registros
+                </div>
+                <div class="pagination-controls">
+                    <div class="page-btn"><i class="fas fa-chevron-left"></i></div>
+                    <div class="page-btn active">1</div>
+                    <div class="page-btn">2</div>
+                    <div class="page-btn">3</div>
+                    <div class="page-btn">...</div>
+                    <div class="page-btn">6</div>
+                    <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para alternar detalhes do log
+        function toggleDetails(logId) {
+            const detailsRow = document.getElementById(`details-${logId}`);
+            const icon = event.currentTarget.querySelector('td:last-child i');
+            
+            if (detailsRow.classList.contains('show')) {
+                detailsRow.classList.remove('show');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                // Fecha outros detalhes abertos
+                document.querySelectorAll('.log-details.show').forEach(row => {
+                    row.classList.remove('show');
+                    const rowId = row.id.split('-')[1];
+                    document.querySelector(`.log-entry[onclick="toggleDetails(${rowId})"] td:last-child i`)
+                        .classList.replace('fa-chevron-up', 'fa-chevron-down');
+                });
+                
+                detailsRow.classList.add('show');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+        
+        // Funções de filtro
+        function applyFilters() {
+            console.log("Aplicando filtros...");
+            // Implementação real faria uma requisição AJAX com os parâmetros
+            alert('Filtros aplicados! (simulação)');
+        }
+        
+        function resetFilters() {
+            document.getElementById('dateFrom').value = '';
+            document.getElementById('dateTo').value = '';
+            document.getElementById('eventType').value = 'all';
+            document.getElementById('userFilter').value = '';
+            document.getElementById('ipFilter').value = '';
+            document.getElementById('keywordFilter').value = '';
+            applyFilters();
+        }
+        
+        function exportLogs() {
+            const format = prompt("Exportar como: (1) CSV, (2) JSON, (3) PDF", "1");
+            
+            if (format) {
+                alert(`Logs exportados como ${format === '1' ? 'CSV' : format === '2' ? 'JSON' : 'PDF'} com sucesso!`);
+                // Implementação real geraria o arquivo correspondente
+            }
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configura data atual como padrão para o filtro "Até"
+            const now = new Date();
+            const today = now.toISOString().slice(0, 16);
+            document.getElementById('dateTo').value = today;
+        });
+    </script>
+</body>
+</html>
