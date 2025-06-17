@@ -80,7 +80,15 @@ body {
 
 .nav-menu {
     padding: 1rem 0;
-    flex-grow: 1;
+}
+
+.nav-title {
+    padding: 0 1.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
 }
 
 .nav-item {

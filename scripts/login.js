@@ -8,7 +8,7 @@
     // Validação do login
     if (email === "doutorvinicius@pontosaude.com.br" && password === "12345") {
         // Redireciona para a página do doutor logado
-        window.location.href = "doutor_logado.html";
+        window.location.href = "./doutorLogado.html";
     } else {
         // Mostra mensagem de erro
         errorMessage.style.display = "block";

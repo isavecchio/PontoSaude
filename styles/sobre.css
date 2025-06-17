@@ -45,6 +45,11 @@ body {
     color: var(--primary-color);
 }
 
+.img-logo{
+    width: 2vw;
+    margin-right: 10px;
+}
+
 .back-btn {
     color: var(--primary-color);
     text-decoration: none;
@@ -182,5 +187,13 @@ body {
     
     .about-content {
         padding: 2rem 1.5rem;
+    }    
+
+    .img-logo{
+        width: 10vw;
+    }
+
+    .span-logo{
+        display: none;
     }
 }
